@@ -1,100 +1,132 @@
-local screenGui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
-local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0, 300, 0, 200)
-mainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
-mainFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-mainFrame.Active = true
-mainFrame.Draggable = true
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "BoomBoxGui"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local titleLabel = Instance.new("TextLabel", mainFrame)
-titleLabel.Text = "made by stealslol"
-titleLabel.Size = UDim2.new(1, 0, 0, 20)
-titleLabel.Position = UDim2.new(0, 0, 0, 0)
-titleLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-titleLabel.TextColor3 = Color3.new(1, 1, 1)
-titleLabel.Font = Enum.Font.SourceSansBold
-titleLabel.TextSize = 14
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 350, 0, 250)
+Frame.Position = UDim2.new(0.5, -175, 0.5, -125)
+Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Frame.BorderSizePixel = 0
+Frame.Parent = ScreenGui
 
-local minimizeButton = Instance.new("TextButton", mainFrame)
-minimizeButton.Size = UDim2.new(0, 20, 0, 20)
-minimizeButton.Position = UDim2.new(1, -25, 0, 5)
-minimizeButton.Text = "_"
-minimizeButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
-minimizeButton.TextColor3 = Color3.new(1, 1, 1)
-minimizeButton.MouseButton1Click:Connect(function()
-    mainFrame.Visible = not mainFrame.Visible
+local Title = Instance.new("TextLabel")
+Title.Text = "made by stealslol"
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 20
+Title.Parent = Frame
+
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Text = "-"
+MinimizeButton.Size = UDim2.new(0, 40, 0, 40)
+MinimizeButton.Position = UDim2.new(1, -40, 0, 0)
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinimizeButton.Font = Enum.Font.SourceSansBold
+MinimizeButton.TextSize = 20
+MinimizeButton.Parent = Frame
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Text = "X"
+CloseButton.Size = UDim2.new(0, 40, 0, 40)
+CloseButton.Position = UDim2.new(1, -80, 0, 0)
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.TextSize = 20
+CloseButton.Parent = Frame
+
+local InputBox = Instance.new("TextBox")
+InputBox.PlaceholderText = "Paste music code here..."
+InputBox.Size = UDim2.new(0.9, 0, 0, 40)
+InputBox.Position = UDim2.new(0.05, 0, 0.2, 0)
+InputBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+InputBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+InputBox.Font = Enum.Font.SourceSans
+InputBox.TextSize = 16
+InputBox.Parent = Frame
+
+local PlayButton = Instance.new("TextButton")
+PlayButton.Text = "Play"
+PlayButton.Size = UDim2.new(0.4, 0, 0, 40)
+PlayButton.Position = UDim2.new(0.05, 0, 0.4, 0)
+PlayButton.BackgroundColor3 = Color3.fromRGB(50, 255, 50)
+PlayButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlayButton.Font = Enum.Font.SourceSansBold
+PlayButton.TextSize = 20
+PlayButton.Parent = Frame
+
+local StopButton = Instance.new("TextButton")
+StopButton.Text = "Stop"
+StopButton.Size = UDim2.new(0.4, 0, 0, 40)
+StopButton.Position = UDim2.new(0.55, 0, 0.4, 0)
+StopButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+StopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+StopButton.Font = Enum.Font.SourceSansBold
+StopButton.TextSize = 20
+StopButton.Parent = Frame
+
+local Slider = Instance.new("Frame")
+Slider.Size = UDim2.new(0.9, 0, 0, 10)
+Slider.Position = UDim2.new(0.05, 0, 0.7, 0)
+Slider.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+Slider.Parent = Frame
+
+local SliderButton = Instance.new("TextButton")
+SliderButton.Size = UDim2.new(0, 15, 0, 15)
+SliderButton.Position = UDim2.new(0, 0, -0.5, 0)
+SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SliderButton.BorderSizePixel = 0
+SliderButton.Parent = Slider
+
+local Sound = Instance.new("Sound")
+Sound.Parent = workspace
+Sound.Looped = true
+Sound.Volume = 1
+
+local Minimized = false
+
+MinimizeButton.MouseButton1Click:Connect(function()
+    Minimized = not Minimized
+    if Minimized then
+        Frame.Size = UDim2.new(0, 350, 0, 40)
+        MinimizeButton.Text = "+"
+    else
+        Frame.Size = UDim2.new(0, 350, 0, 250)
+        MinimizeButton.Text = "-"
+    end
 end)
 
-local musicIdBox = Instance.new("TextBox", mainFrame)
-musicIdBox.Size = UDim2.new(0.8, 0, 0, 30)
-musicIdBox.Position = UDim2.new(0.1, 0, 0.2, 0)
-musicIdBox.PlaceholderText = "Введите ID музыки"
-musicIdBox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
-musicIdBox.TextColor3 = Color3.new(1, 1, 1)
-
-local volumeSlider = Instance.new("TextButton", mainFrame)
-volumeSlider.Size = UDim2.new(0.8, 0, 0, 20)
-volumeSlider.Position = UDim2.new(0.1, 0, 0.4, 0)
-volumeSlider.Text = "Громкость: 50%"
-volumeSlider.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
-volumeSlider.TextColor3 = Color3.new(1, 1, 1)
-
-local volumeValue = 0.5
-
-volumeSlider.MouseButton1Down:Connect(function(x)
-    local startX = volumeSlider.AbsolutePosition.X
-    local endX = startX + volumeSlider.AbsoluteSize.X
-    local function updateVolume(x)
-        volumeValue = math.clamp((x - startX) / (endX - startX), 0, 1)
-        volumeSlider.Text = "Громкость: " .. math.floor(volumeValue * 100) .. "%"
-        if sound then
-            sound.Volume = volumeValue
-        end
-    end
-    updateVolume(x)
-    local connection
-    connection = game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement then
-            updateVolume(input.Position.X)
-        else
-            connection:Disconnect()
-        end
-    end)
+CloseButton.MouseButton1Click:Connect(function()
+    Sound:Stop()
+    ScreenGui:Destroy()
 end)
 
-local playButton = Instance.new("TextButton", mainFrame)
-playButton.Size = UDim2.new(0.35, 0, 0, 30)
-playButton.Position = UDim2.new(0.1, 0, 0.6, 0)
-playButton.Text = "Play"
-playButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
-playButton.TextColor3 = Color3.new(1, 1, 1)
-
-local stopButton = Instance.new("TextButton", mainFrame)
-stopButton.Size = UDim2.new(0.35, 0, 0, 30)
-stopButton.Position = UDim2.new(0.55, 0, 0.6, 0)
-stopButton.Text = "Stop"
-stopButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
-stopButton.TextColor3 = Color3.new(1, 1, 1)
-
-local sound
-
-playButton.MouseButton1Click:Connect(function()
-    if sound then
-        sound:Stop()
-        sound:Destroy()
-    end
-    local musicId = tonumber(musicIdBox.Text)
-    if musicId then
-        sound = Instance.new("Sound", workspace)
-        sound.SoundId = "rbxassetid://" .. musicId
-        sound.Volume = volumeValue
-        sound:Play()
-        sound.Looped = true
+PlayButton.MouseButton1Click:Connect(function()
+    local soundId = tonumber(InputBox.Text)
+    if soundId then
+        Sound.SoundId = "rbxassetid://" .. soundId
+        Sound:Play()
     end
 end)
 
-stopButton.MouseButton1Click:Connect(function()
-    if sound then
-        sound:Stop()
+StopButton.MouseButton1Click:Connect(function()
+    Sound:Stop()
+end)
+
+SliderButton.MouseButton1Down:Connect(function()
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local sliderSize = Slider.AbsoluteSize.X
+    local sliderPos = Slider.AbsolutePosition.X
+    
+    while mouse.Button1Down do
+        local x = math.clamp(mouse.X - sliderPos, 0, sliderSize)
+        local percent = x / sliderSize
+        SliderButton.Position = UDim2.new(0, x, -0.5, 0)
+        Sound.TimePosition = Sound.TimeLength * percent
+        wait()
     end
 end)
