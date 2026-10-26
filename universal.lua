@@ -1,132 +1,136 @@
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "BoomBoxGui"
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local chatFrame = Instance.new("Frame")
+chatFrame.Name = "ChatFrame"
+chatFrame.Size = UDim2.new(0, 300, 0, 200)
+chatFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+chatFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+chatFrame.BorderSizePixel = 0
+chatFrame.Active = true
+chatFrame.Draggable = true
+chatFrame.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local Frame = Instance.new("Frame")
-Frame.Size = UDim2.new(0, 350, 0, 250)
-Frame.Position = UDim2.new(0.5, -175, 0.5, -125)
-Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-Frame.BorderSizePixel = 0
-Frame.Parent = ScreenGui
+local titleBar = Instance.new("Frame")
+titleBar.Name = "TitleBar"
+titleBar.Size = UDim2.new(1, 0, 0, 20)
+titleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleBar.BorderSizePixel = 0
+titleBar.Parent = chatFrame
 
-local Title = Instance.new("TextLabel")
-Title.Text = "made by stealslol"
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.Position = UDim2.new(0, 0, 0, 0)
-Title.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.Font = Enum.Font.SourceSansBold
-Title.TextSize = 20
-Title.Parent = Frame
+local titleText = Instance.new("TextLabel")
+titleText.Name = "TitleText"
+titleText.Size = UDim2.new(1, -50, 1, 0)
+titleText.Position = UDim2.new(0, 5, 0, 0)
+titleText.Text = "made by stealslol"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.BackgroundTransparency = 1
+titleText.Font = Enum.Font.SourceSans
+titleText.TextSize = 14
+titleText.TextXAlignment = Enum.TextXAlignment.Left
+titleText.Parent = titleBar
 
-local MinimizeButton = Instance.new("TextButton")
-MinimizeButton.Text = "-"
-MinimizeButton.Size = UDim2.new(0, 40, 0, 40)
-MinimizeButton.Position = UDim2.new(1, -40, 0, 0)
-MinimizeButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-MinimizeButton.Font = Enum.Font.SourceSansBold
-MinimizeButton.TextSize = 20
-MinimizeButton.Parent = Frame
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Name = "MinimizeButton"
+minimizeButton.Size = UDim2.new(0, 20, 0, 20)
+minimizeButton.Position = UDim2.new(1, -40, 0, 0)
+minimizeButton.Text = "_"
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+minimizeButton.BorderSizePixel = 0
+minimizeButton.Font = Enum.Font.SourceSans
+minimizeButton.TextSize = 14
+minimizeButton.Parent = titleBar
 
-local CloseButton = Instance.new("TextButton")
-CloseButton.Text = "X"
-CloseButton.Size = UDim2.new(0, 40, 0, 40)
-CloseButton.Position = UDim2.new(1, -80, 0, 0)
-CloseButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseButton.Font = Enum.Font.SourceSansBold
-CloseButton.TextSize = 20
-CloseButton.Parent = Frame
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 20, 0, 20)
+closeButton.Position = UDim2.new(1, -20, 0, 0)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+closeButton.BorderSizePixel = 0
+closeButton.Font = Enum.Font.SourceSans
+closeButton.TextSize = 14
+closeButton.Parent = titleBar
 
-local InputBox = Instance.new("TextBox")
-InputBox.PlaceholderText = "Paste music code here..."
-InputBox.Size = UDim2.new(0.9, 0, 0, 40)
-InputBox.Position = UDim2.new(0.05, 0, 0.2, 0)
-InputBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-InputBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-InputBox.Font = Enum.Font.SourceSans
-InputBox.TextSize = 16
-InputBox.Parent = Frame
+local chatLog = Instance.new("ScrollingFrame")
+chatLog.Name = "ChatLog"
+chatLog.Size = UDim2.new(1, -10, 1, -60)
+chatLog.Position = UDim2.new(0, 5, 0, 25)
+chatLog.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+chatLog.BorderSizePixel = 0
+chatLog.ScrollBarThickness = 8
+chatLog.CanvasSize = UDim2.new(0, 0, 0, 0)
+chatLog.AutomaticCanvasSize = Enum.AutomaticSize.Y
+chatLog.Parent = chatFrame
 
-local PlayButton = Instance.new("TextButton")
-PlayButton.Text = "Play"
-PlayButton.Size = UDim2.new(0.4, 0, 0, 40)
-PlayButton.Position = UDim2.new(0.05, 0, 0.4, 0)
-PlayButton.BackgroundColor3 = Color3.fromRGB(50, 255, 50)
-PlayButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-PlayButton.Font = Enum.Font.SourceSansBold
-PlayButton.TextSize = 20
-PlayButton.Parent = Frame
+local chatEntry = Instance.new("TextBox")
+chatEntry.Name = "ChatEntry"
+chatEntry.Size = UDim2.new(1, -70, 0, 30)
+chatEntry.Position = UDim2.new(0, 5, 1, -35)
+chatEntry.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+chatEntry.BorderSizePixel = 0
+chatEntry.TextColor3 = Color3.fromRGB(255, 255, 255)
+chatEntry.Font = Enum.Font.SourceSans
+chatEntry.TextSize = 14
+chatEntry.PlaceholderText = "Type your message..."
+chatEntry.Parent = chatFrame
 
-local StopButton = Instance.new("TextButton")
-StopButton.Text = "Stop"
-StopButton.Size = UDim2.new(0.4, 0, 0, 40)
-StopButton.Position = UDim2.new(0.55, 0, 0.4, 0)
-StopButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-StopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-StopButton.Font = Enum.Font.SourceSansBold
-StopButton.TextSize = 20
-StopButton.Parent = Frame
+local sendButton = Instance.new("TextButton")
+sendButton.Name = "SendButton"
+sendButton.Size = UDim2.new(0, 60, 0, 30)
+sendButton.Position = UDim2.new(1, -65, 1, -35)
+sendButton.Text = "Send"
+sendButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+sendButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+sendButton.BorderSizePixel = 0
+sendButton.Font = Enum.Font.SourceSans
+sendButton.TextSize = 14
+sendButton.Parent = chatFrame
 
-local Slider = Instance.new("Frame")
-Slider.Size = UDim2.new(0.9, 0, 0, 10)
-Slider.Position = UDim2.new(0.05, 0, 0.7, 0)
-Slider.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-Slider.Parent = Frame
+local function addMessage(message)
+    local messageLabel = Instance.new("TextLabel")
+    messageLabel.Text = message
+    messageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    messageLabel.BackgroundTransparency = 1
+    messageLabel.Font = Enum.Font.SourceSans
+    messageLabel.TextSize = 14
+    messageLabel.TextXAlignment = Enum.TextXAlignment.Left
+    messageLabel.TextYAlignment = Enum.TextYAlignment.Top
+    messageLabel.Size = UDim2.new(1, 0, 0, 20)
+    messageLabel.Parent = chatLog
+end
 
-local SliderButton = Instance.new("TextButton")
-SliderButton.Size = UDim2.new(0, 15, 0, 15)
-SliderButton.Position = UDim2.new(0, 0, -0.5, 0)
-SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-SliderButton.BorderSizePixel = 0
-SliderButton.Parent = Slider
-
-local Sound = Instance.new("Sound")
-Sound.Parent = workspace
-Sound.Looped = true
-Sound.Volume = 1
-
-local Minimized = false
-
-MinimizeButton.MouseButton1Click:Connect(function()
-    Minimized = not Minimized
-    if Minimized then
-        Frame.Size = UDim2.new(0, 350, 0, 40)
-        MinimizeButton.Text = "+"
-    else
-        Frame.Size = UDim2.new(0, 350, 0, 250)
-        MinimizeButton.Text = "-"
+sendButton.MouseButton1Click:Connect(function()
+    local message = chatEntry.Text
+    if message ~= "" then
+        addMessage(game.Players.LocalPlayer.Name .. ": " .. message)
+        chatEntry.Text = ""
     end
 end)
 
-CloseButton.MouseButton1Click:Connect(function()
-    Sound:Stop()
-    ScreenGui:Destroy()
-end)
-
-PlayButton.MouseButton1Click:Connect(function()
-    local soundId = tonumber(InputBox.Text)
-    if soundId then
-        Sound.SoundId = "rbxassetid://" .. soundId
-        Sound:Play()
+chatEntry.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local message = chatEntry.Text
+        if message ~= "" then
+            addMessage(game.Players.LocalPlayer.Name .. ": " .. message)
+            chatEntry.Text = ""
+        end
     end
 end)
 
-StopButton.MouseButton1Click:Connect(function()
-    Sound:Stop()
+minimizeButton.MouseButton1Click:Connect(function()
+    chatLog.Visible = not chatLog.Visible
+    chatEntry.Visible = not chatEntry.Visible
+    sendButton.Visible = not sendButton.Visible
 end)
 
-SliderButton.MouseButton1Down:Connect(function()
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local sliderSize = Slider.AbsoluteSize.X
-    local sliderPos = Slider.AbsolutePosition.X
-    
-    while mouse.Button1Down do
-        local x = math.clamp(mouse.X - sliderPos, 0, sliderSize)
-        local percent = x / sliderSize
-        SliderButton.Position = UDim2.new(0, x, -0.5, 0)
-        Sound.TimePosition = Sound.TimeLength * percent
-        wait()
-    end
+closeButton.MouseButton1Click:Connect(function()
+    chatFrame:Destroy()
 end)
+
+local userInputService = game:GetService("UserInputService")
+local function onInputBegan(input, gameProcessed)
+    if input.UserInputType == Enum.UserInputType.Touch then
+        chatFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+    end
+end
+userInputService.InputBegan:Connect(onInputBegan)
